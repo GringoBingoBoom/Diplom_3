@@ -28,12 +28,15 @@ class BasePage:
         WebDriverWait(self.driver, 10).until(ec.visibility_of_element_located(locator))
         return WebDriverWait(self.driver, 15).until(ec.element_to_be_clickable(locator))
 
+    @allure.step('Поиск элемента')
     def find_element(self, locator):
         return self.driver.find_element(*locator)
 
+    @allure.step('Возвращает ActionChains(driver)')
     def action(self):
         return ActionChains(self.driver)
 
+    @allure.step('Скролинг до элемента')
     def scroll_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
