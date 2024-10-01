@@ -1,11 +1,11 @@
 class Urls:
     MAIN = "https://stellarburgers.nomoreparties.site/"
-    LOGIN = "https://stellarburgers.nomoreparties.site/login"
-    PROFILE = "https://stellarburgers.nomoreparties.site/account/profile"
-    FORGOT_PASSWORD = "https://stellarburgers.nomoreparties.site/forgot-password"
-    RESET_PASSWORD = "https://stellarburgers.nomoreparties.site/reset-password"
-    FEED = "https://stellarburgers.nomoreparties.site/feed"
-    ORDER_HISTORY = "https://stellarburgers.nomoreparties.site/account/order-history"
+    LOGIN = f"{MAIN}login"
+    PROFILE = f"{MAIN}profile"
+    FORGOT_PASSWORD = f"{MAIN}forgot-password"
+    RESET_PASSWORD = f"{MAIN}reset-password"
+    FEED = f"{MAIN}feed"
+    ORDER_HISTORY = f"{MAIN}order-history"
 
 
 FAKE_CEED = 2128506  # ceed для faker
