@@ -1,0 +1,1 @@
+{'success': True, 'message': 'User successfully removed'} {'email': 'karen15@example.net', 'password': '(44vIHCwOr', 'name': 'michelle61'}
