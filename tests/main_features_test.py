@@ -1,18 +1,12 @@
-from data import Urls, ApiUrls
+from data import Urls
 import allure
 from locators.base_page_locator import BasePageLocator
 from locators.feed_page_locator import FeedPageLocator
 from locators.main_page_locators import MainPageLocator
 from pages.main_page import MainPage
-from api import ApiRequest
-from helpers import CreatePayload
 
 
 class TestMainFeatures:
-
-    @allure.title('setup')
-    def setup_method(self):
-        self.teardown_payload = None
 
     @allure.title('3.1 Проверка основного функционала. Переход по клику на «Конструктор»')
     @allure.description('Проверка основного функционала. Переход по клику на «Конструктор»')
@@ -72,7 +66,6 @@ class TestMainFeatures:
     @allure.title('3.6 Проверка основного функционала. залогиненный пользователь может оформить заказ')
     @allure.description('залогиненный пользователь может оформить заказ')
     def test_registered_user_can_place_order(self, driver, payload, create_user):
-        self.teardown_payload = payload
         main_page = MainPage(driver)
         main_page.open_page(Urls.MAIN)
         main_page.login(payload)
@@ -81,18 +74,3 @@ class TestMainFeatures:
         element = main_page.wait_and_find_element(MainPageLocator.POP_UP_DETAILS)
 
         assert 'opened' in element.get_attribute('class')
-
-    @allure.title('teardown')
-    def teardown_method(self, payload_login):
-        """
-        удаляем данные на основании payload. Через авторизацию получаем токен
-        """
-        if self.teardown_payload:
-            payload_login = CreatePayload.payload_for_login(self.teardown_payload)
-            response = ApiRequest.post(ApiUrls.AUTHORIZATION, payload_login)
-            if response.status_code == 200:  # если пользователь существует удаляем данные о нем
-                r = response.json()
-                payload_token = CreatePayload.payload_authorization(r['accessToken'])
-                response_del = ApiRequest.delete(ApiUrls.USER_INFO, payload_token)
-                print(response_del.json(), self.teardown_payload)
-                assert response_del.status_code == 202, f'Значение {response_del.status_code=} не равно 202'
